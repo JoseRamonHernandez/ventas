@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ventas Cuahutemoc</title>
+
+        <Script Language="JavaScript">
+            function DameLaFechaHora() {
+              var hora = new Date()
+              var hrs = hora.getHours();
+              var min = hora.getMinutes();
+              var hoy = new Date();
+              var m = new Array();
+              var d = new Array()
+              var an= hoy.getYear();
+              m[0]="Enero";  m[1]="Febrero";  m[2]="Marzo";
+              m[3]="Abril";   m[4]="Mayo";  m[5]="Junio";
+              m[6]="Julio";    m[7]="Agosto";   m[8]="Septiembre";
+              m[9]="Octubre";   m[10]="Noviembre"; m[11]="Diciembre";
+              document.write("Fecha y hora: "+hrs+":"+min+" (");
+              document.write(hoy.getDate());
+              document.write(" de ");
+              document.write(m[hoy.getMonth()]);
+              document.write(")");
+            }
+          </Script>
+
+    </head>
+    
+    <body bgcolor="#FF8A00">
+    
+    
+        <style>
+img{
+    border-radius: 120px;
+}
+div {
+      
+        margin: 60px;
+        border: 2px solid;
+        background-color: #FBD603;
+        border-collapse: separate;
+    }
+
+            .div-1{
+            background-color: #E0DDD8
+            }
+
+            
+            .button-1{
+                background-color: #0C20D1;
+                font-size: 20px;
+                color:white;
+            }
+input{
+    font-size:smaller;
+    background-color: #FBD603;
+    vertical-align: 1px;
+    text-align: center;
+}
+
+    
+    
+        </style>
+
+    <script>
+    DameLaFechaHora();
+  </script>
+    
+        <center>
+          <p style="font-family:Brush Script MT;"><font size="13">Alitas BBq y mas...</font></p>
+        </center> 
+        <center>
+        <div class="div-1"  >
+            <form method="GET" action="venta.php"> 
+                <p style="font-family:Brush Script MT;"><font size="5">Alitas:   
+                    <input type="number" name="alitas" value="0">
+                    HotDogs:  
+                    <input type="number" name="hotdogs" value="0"></font>
+                </p>
+                <p style="font-family:Brush Script MT;"><font size="5">Papas:    
+                    <input type="number" name="papas" value="0">
+                    Platanos:
+                    <input type="number" name="platanos" value="0"></font>
+                </p>
+                <p style="font-family:Brush Script MT;"><font size="5">HotCakes:
+                    <input type="number" name="hotcakes" value="0">
+                    Micheladas:
+                    <input type="number" name="micheladas" value="0"></font>
+                </p>
+                <p align="right">
+                <button type="submit" title="Realizar venta" class="button-1">SubTotal</button>
+            </p>
+            </form>
+        </div>
+        <img src="img/image1.png" alt="imagen de asador" title="Alitas al carbon">
+    </center>
+    </body>
+</html>
