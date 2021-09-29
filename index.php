@@ -27,7 +27,8 @@
     </head>
     
     <body bgcolor="#FF8A00">
-    
+    <?php   require_once "./db/conexion.php"; ?>
+
     
         <style>
 img{
@@ -36,12 +37,12 @@ img{
 div {
       
         margin: 60px;
-        border: 2px solid;
-        background-color: #FBD603;
+       
         border-collapse: separate;
     }
 
             .div-1{
+                border: 2px solid;
             background-color: #E0DDD8
             }
 
@@ -71,7 +72,7 @@ input{
         </center> 
         <center>
         <div class="div-1"  >
-            <form method="GET" action="venta.php"> 
+            <form method="GET" action="index.php"> 
                 <p style="font-family:Brush Script MT;"><font size="5">Alitas:   
                     <input type="number" name="alitas" value="0">
                     HotDogs:  
@@ -88,11 +89,74 @@ input{
                     <input type="number" name="micheladas" value="0"></font>
                 </p>
                 <p align="right">
-                <button type="submit" title="Realizar venta" class="button-1">SubTotal</button>
+                <button type="submit" title="Realizar venta" class="button-1" name="button1">SubTotal</button>
             </p>
             </form>
         </div>
-        <img src="img/image1.png" alt="imagen de asador" title="Alitas al carbon">
+        <img src="img/image1.png" alt="imagen de asador" title="Alitas al carbon" name="button1">
+    
+       
     </center>
+    <?php
+
+    if(isset($_GET["button1"])==1)
+    {
+
+
+        $alitas= $_GET['alitas'];
+        $hotdogs= $_GET['hotdogs'];
+        $papas= $_GET['papas'];
+        $platanos= $_GET['platanos'];
+        $hotcakes= $_GET['hotcakes'];
+        $micheladas= $_GET['micheladas'];
+        $pago= 0;
+                    $FechaHora= "<script>
+                    DameLaFechaHora();
+                  </script>" ;
+                  $date = $FechaHora;
+                  $fecha = date("Y-m-d");
+                
+                    $consulta= "SELECT * FROM precios ORDER BY id DESC LIMIT 1";
+                    $ejecutarconsulta= mysqli_query($db,$consulta);
+                    $verfilas= mysqli_num_rows($ejecutarconsulta);
+                    $fila= mysqli_fetch_array($ejecutarconsulta);
+        
+                    /* aqui realizaremos las multiplicaciones con los precios en la db para saber el total de la venta */
+        
+                  
+            $Total1=$fila[1]*$alitas;
+            $Total2=$fila[4]*$hotdogs;
+            $Total3=$fila[2]*$papas;
+            $Total4=$fila[5]*$platanos;
+            $Total5=$fila[3]*$hotcakes;
+            $Total6=$fila[6]*$micheladas;
+
+            $TotalVenta= ($Total1+$Total2+$Total3+$Total4+$Total5+$Total6);
+
+        ?>
+        <div class="container">
+            <div class="div-1">
+                <center>
+            <form method="GET" action="venta.php">
+            <p>Total  de la Venta <input type="number" value="<?php echo $TotalVenta; ?>" disabled>
+                Pago <input type="number" name="pago" placeholder="El cliente paga con: ">
+            </p>
+            <p align="center">
+                <button type="submit" title="Registrar venta" class="button-1">Realizar Venta</button>
+            </p>
+            </form>
+            </center>
+            
+            </div>
+            </div>
+            <?php
+
+$almacenar= "INSERT INTO registro( alitas, papas, hotcakes, hotdogs, platanos, micheladas, total, pago, fecha) VALUES ( '$alitas', '$papas', '$hotcakes', '$hotdogs', '$platanos', '$micheladas', '$TotalVenta', '$pago', '$fecha')";
+$resultado= mysqli_query($db, $almacenar);
+
+    }
+
+    ?>
+
     </body>
 </html>
