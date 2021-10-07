@@ -35,14 +35,14 @@
 
           .div-1{
             border: 2px solid;
-          background-color: #E0DDD8
+          background-color: #E0DDD8;
           }
 
           
           .button-1{
-              background-color: #0C20D1;
+              background-color: #00FF38;
               font-size: 20px;
-              color:white;
+              color:black;
           }
 input{
   font-size:smaller;
@@ -51,18 +51,49 @@ input{
   text-align: center;
 }
 
-  
+.img1{
+border-radius: 20px;
+}
+
+
             </style> 
             <?php
             require_once "./db/conexion.php";
 
 $pago= $_GET['pago'];
-echo $pago;
+// echo ("El cliente pagó con: ".$pago.  " de un total de: "); Imprime el dinero con el que el cliente pagó
 
 
+$consulta= "SELECT total FROM registro ORDER BY id DESC LIMIT 1";
+$ejecutarconsulta= mysqli_query($db,$consulta);
+$verfilas= mysqli_num_rows($ejecutarconsulta);
+$fila= mysqli_fetch_array($ejecutarconsulta);
 
+// echo $fila[0]; Imprime el valor total de la compra 
+
+$TotalVenta= $pago - $fila[0];
+// date_default_timezone_set('America/Mexico_City');    
+// $DateAndTime = date('m-d-Y h:i:s a', time());  
+// echo $DateAndTime;
 ?>
-   
-   <a href="./index.php">regresar</a>
-        </body>
+
+<div class="container">
+
+<div class="div-1">
+    <center>
+    <form method="GET" action="pageHome.php">
+    <p> Cambio: <input type="number" name="cambio" value="<?php echo $TotalVenta; ?>" disabled> </p>
+    <p align="center" href="./pageHome.php">
+                <button type="submit" title="Registrar venta" class="button-1" name="button">Realizar Otra Venta</button>
+            </p>
+</form>
+    </center>
+
+
+</div>
+</div>
+<center>
+<img src="./img/image2.png" title="ALAS-BRAZAS" class="img1">
+</center>       
+</body>
 </html>
